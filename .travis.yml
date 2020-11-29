@@ -4,5 +4,10 @@ node_js:
 cache:
   directories:
     - node_modules/
+addons:
+  sonarcloud:
+    organization: "cpriego"
 script:
-  - npm run test-coverage
+  - npm run lint:check
+  - npm run test:coverage
+  - sonar-scanner
