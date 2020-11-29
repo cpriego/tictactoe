@@ -226,15 +226,38 @@ describe('During gameplay', () => {
 			board.drawPin(playerX, 'bottom-left');
 			board.drawPin(playerO, 'top-center');
 			board.drawPin(playerX, 'mid-center');
-			board.drawPin(playerO, 'mid-left');
+			board.drawPin(playerO, 'bottom-right');
 			board.drawPin(playerX, 'top-right');
 
-			it('should check for correct console rendering \n |O|X\n-+-+-\nO|X| \n-+-+-\nX| |', () => {
+			it('should check for correct console rendering \n |O|X\n-+-+-\n |X| \n-+-+-\nX| |O', () => {
 				expect(board.prepareTheConsoleOutput()).toBe(stubs.expectedBoardOfBottomLeftTopRightDiagonalWin);
 			});
 
 			it('should check for bottom-left to top-right diagonal win', () => {
 				expect(board.checkForWin(playerX)).toBe(true);
+			});
+		});
+
+		describe('Check for draw condition', () => {
+			const board = new Board();
+
+			board.drawPin(playerX, 'bottom-left');
+			board.drawPin(playerO, 'top-center');
+			board.drawPin(playerX, 'mid-center');
+			board.drawPin(playerO, 'top-right');
+			board.drawPin(playerX, 'top-left');
+			board.drawPin(playerO, 'mid-left');
+			board.drawPin(playerX, 'mid-right');
+			board.drawPin(playerO, 'bottom-right');
+			board.drawPin(playerX, 'bottom-center');
+
+			it('should check for correct console rendering \nX|O|O\n-+-+-\nO|X|X\n-+-+-\nX|X|O', () => {
+				expect(board.prepareTheConsoleOutput()).toBe(stubs.expectedBoardOfDraw);
+			});
+
+			it('should check for draw', () => {
+				expect(board.checkForWin(playerX)).toBe(false);
+				expect(board.checkForWin(playerO)).toBe(false);
 			});
 		});
 	});
